@@ -76,54 +76,43 @@
                     Bayesian methods in ranking
                 </h1>
 
-    Many websites contain a ranking system, like <a href="http://quora.com">Quora</a>, <a href="http://www.reddit.com/">Reddit</a>, <a href="http://zhihu.com">Zhihu</a>, for a post/question, there might be multiple responses/answers, and for each response/answer, users could have two options: upvote or downvote.&nbsp;
-    <div>
-        <br>
-    </div>
-    <div style="display:block;text-align:left"><a href="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_007.png?attredirects=0" imageanchor="1"><img border="0" src="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_007.png" style="width:100%"></a></div>
-    <div style="display:block;text-align:left">
-        <br>
-    </div>
-    <div style="display:block;text-align:left">Generally the number of upvote and down vote should decide the ranking of the response/answer. (There may be some extra factors needed to consider for ranking though.)</div>
-        <br>
-    </div>
-    <div>In this case, a Bayesian approach could be useful. Let us assume that the ranking is purely decided by the number of upvotes, while the number of upvotes is a Binomial distribution with n total users and voting probability p.</div>
-    <div>Now the question is: how to decide p appropriately? The Bayesian answer would be to calculate the conjugate prior probability and then update with data.</div>
-    <div>
-        <br>
-    </div>
-    <div>Before going further, let us take a look at the conjugate prior distribution diagram:</div>
-    <div>
-        <div style="display:block;text-align:left"><a href="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_006.png?attredirects=0" imageanchor="1"><img border="0" src="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_006.png" style="width:100%"></a></div>
-        <div style="display:block;text-align:left">
-            <br>
-        </div>
-        <div style="display:block;text-align:left">From this we know that the conjugate prior probability of p follows Beta distribution, Beta(a,b), which pdf is proportional to the p^(a-1) and (1-p)^(b-1).</div>
-        <div style="display:block;text-align:left">And to update p with data we calculate the posterior probability: &nbsp;p|data ~ Beta(a+upvotes, b+downvotes).</div>
-        <div style="display:block;text-align:left">
-            <br>
-        </div>
-        <div style="display:block;text-align:left">This simple method could basically achieve:</div>
-        <div style="display:block;text-align:left">1. more upvotes would high-rank the answer</div>
-        <div style="display:block;text-align:left">2. more downvotes would low-rank the answer &nbsp;</div>
-        <div style="display:block;text-align:left">3. the ranking would gradually change rather than suddenly jump to top or bottom.&nbsp;</div>
-            <br>
-        </div>
-        <div>
-            <br>
-        </div>
-    </div>
-
+            <p>
+                Many websites contain a ranking system, like <a href="http://quora.com">Quora</a>, <a href="http://www.reddit.com/">Reddit</a>, <a href="http://zhihu.com">Zhihu</a>, for a post/question, there might be multiple responses/answers, and for each response/answer, users could have two options: upvote or downvote.&nbsp;
+            </p>    
+        
+            <div style="display:block;text-align:left">
+                <a href="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_007.png?attredirects=0" imageanchor="1">
+                    <img border="0" src="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_007.png" style="width:70%">
+                </a>
             </div>
-            <li>
-            <a href="https://fr.linkedin.com/in/afaris">LinkedIn</a>
-            </li>
-             <li>
-            <a href=mailto:"reginald1787@gmail.com">Gmail</a>
-            </li>
-            <li>
-            <a href="https://github.com/reginald1787">GitHub</a>
-            </li>
+            <p>
+                Generally the number of upvote and down vote should decide the ranking of the response/answer. (There may be some extra factors needed to consider for ranking though.)
+            </p>
+            <p>
+                In this case, a Bayesian approach could be useful. Let us assume that the ranking is purely decided by the number of upvotes, while the number of upvotes is a Binomial distribution with n total users and voting probability p.
+            </p>
+            <p>
+                Now the question is: how to decide p appropriately? The Bayesian answer would be to calculate the conjugate prior probability and then update with data.
+            </p>
+            <p>
+                Before going further, let us take a look at the conjugate prior distribution diagram:
+            </p>
+            <div style="display:block;text-align:left">
+                <a href="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_006.png?attredirects=0" imageanchor="1">
+                    <img border="0" src="https://sites.google.com/site/jontuheim/data-science/bayesian-methods-in-ranking/Selection_006.png" style="width:50%">
+                </a>
+            </div>
+            <p>
+                From this we know that the conjugate prior probability of p follows Beta distribution, Beta(a,b), which pdf is proportional to the p^(a-1) and (1-p)^(b-1).
+            </p>
+            <p>
+                And to update p with data we calculate the posterior probability: &nbsp;p|data ~ Beta(a+upvotes, b+downvotes).
+            </p>
+            <p>This simple method could basically achieve:</p>
+            <p>1. more upvotes would high-rank the answer</p>
+            <p>2. more downvotes would low-rank the answer &nbsp;</p>
+            <p>3. the ranking would gradually change rather than suddenly jump to top or bottom.&nbsp;</p>
+           
 
         </div>
         <!-- /.row -->
