@@ -1,0 +1,240 @@
+	<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>理解 word2vec | 掖垣十寻</title>
+  <meta name="author" content="Li">
+  
+  <meta name="description" content="简介word2vec 是 Google 推出的用来做词表示的开源工具包。在自然语言处理中，我们把一个句子当成词的集合，那么一篇文章所出现的所有词的集合就称之为词典 (vocabulary).在词典中表示一个具体的词，可以有两张办法：
+
+用 index 来表示，比如 第138个词；
+
+或者
+
+用词向量 (vector) 来表示，假设总共有 k 个词， 这个词是第138个，那么它的表示就是一个 k-dimension vector，在138位为1， 其他为0
+
+这种表示称为 one-hot encoding。 
+但是这种表示除了能让我们索引到词以外，并不能提供任何其他的信息，我们希望一种更好的词表达方式，能够或多或少地表达这个词的意义。
+因此 word2vec 就出现了。
+让我们首先来思考，如何（在数学上）表达一个词的意义？">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="理解 word2vec"/>
+  <meta property="og:site_name" content="掖垣十寻"/>
+
+  
+  
+		<!-- favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#009688">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#009688">
+		<!-- favicon end -->
+    <!-- <link href="/favicon.ico" rel="icon"> -->
+  
+
+  <!-- toc -->
+  <link rel="stylesheet" href="/libs/tocify/jquery.tocify.css" media="screen" type="text/css">
+
+  <!-- <link rel="stylesheet" href="/libs/bs/css/bootstrap.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" type="text/css">
+
+  <!-- material design -->
+	<!-- <link rel="stylesheet" href="/libs/bs-material/css/ripples.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/ripples.min.css" media="screen" type="text/css">
+  <!-- <link rel="stylesheet" href="/libs/bs-material/css/material.min.css" media="screen" type="text/css"> -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/material.min.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/highlight.light.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+
+  
+
+  <script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/libs/jquery-2.0.3.min.js" type="text/javascript"><\/script>')</script>
+
+</head>
+
+ 	<body>
+	  <nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">掖垣十寻</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li>
+                    <a href="/" title="">
+                    <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/archives" title="">
+                    <i class="fa fa-list"></i>存档
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="">
+                    <i class="fa fa-info-circle"></i>关于
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/atom.xml" title="这是一个订阅源">
+                    <i class="fa fa-rss"></i>RSS
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+	  <div class="container" >
+	    <div class="row">
+	
+	<div class="col-md-9 center-content">
+	
+
+		<div class="content">
+			<!-- index -->
+		   
+
+			  		<h2>理解 word2vec</h2>
+					
+					<div>
+						<span class="post-time">2015-01-28 13:10:16</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://code.google.com/p/word2vec/" target="_blank" rel="external">word2vec</a> 是 Google 推出的用来做词表示的开源工具包。<br>在自然语言处理中，我们把一个句子当成词的集合，那么一篇文章所出现的所有词的集合就称之为词典 (vocabulary).<br>在词典中表示一个具体的词，可以有两张办法：</p>
+<blockquote>
+<p>用 index 来表示，比如 <code>第138个词</code>；</p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>用词向量 (vector) 来表示，假设总共有 k 个词， 这个词是第138个，那么它的表示就是一个 <code>k-dimension vector</code>，在138位为1， 其他为0</p>
+</blockquote>
+<p>这种表示称为 <code>one-hot encoding</code>。 </p>
+<p>但是这种表示除了能让我们索引到词以外，并不能提供任何其他的信息，我们希望一种更好的词表达方式，能够或多或少地表达这个词的意义。</p>
+<p>因此 word2vec 就出现了。</p>
+<p>让我们首先来思考，如何（在数学上）表达一个词的意义？</p>
+<a id="more"></a>
+<p>通常当你翻开词典寻找一个词的解释的时候，都会有近义词的条目。那么直觉来说，一个词的意义，最容易由近义词来表达。<br>而近义词在数学上是好定义的，只要这两个词在某种 <code>metric</code> 下距离相近即可。</p>
+<p>这种表示称为 <code>distributed representation</code>，word2vec 就是这样一种词表示。在这种表示里，我们需要解决的问题，就是要定义这种 <code>metric</code>，<br>实际上也就是，要定义好词向量。</p>
+<p>word2vec 把定义一个词向量转换为两个分类问题，然后用两个 module 来解决它：</p>
+<blockquote>
+<p>Skip-gram: </p>
+</blockquote>
+<pre><code>给定一个词和以这个词为中心的一个窗口, Skip-gram 预测窗口内这个词周围的词
+</code></pre><blockquote>
+<p>Continuous bag of words (CBOW):</p>
+</blockquote>
+<pre><code>反过来, 给定周围的词和这个窗口，CBOW 预测这个中心词
+</code></pre><p><img src="https://drive.google.com/uc?export=view&amp;id=0B2LZQ72QPejMaXpmN2xYTGtXc3M" alt=""></p>
+<p>通过这两个 module, word2vec 就能够获取词向量了。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>机器学习中最重要的事情是定义好目标函数。机器学习过程本质就是在目标函数的约束下的优化过程。</p>
+<p>对于 CBOW 的目标函数为：</p>
+<p>$$ L = \sum_{w\in C} \log p(w|Context(w)) $$</p>
+<p>对于 Skip-gram 的目标函数为:</p>
+<p>$$ L = \sum_{w\in C} \log p(Context(w)|w) $$</p>
+<p>这两个目标函数都是非常直接的。采用对数似然函数是自然语言处理的惯用办法，可以参考我们之前的文章。<br>现在我们的关键就在于 $p(w|Context(w))$ 和 $p(Context(w)|w)$ 的构造上</p>
+<h3 id="基于-Hierachical-Softmax-的-CBOW-模型"><a href="#基于-Hierachical-Softmax-的-CBOW-模型" class="headerlink" title="基于 Hierachical Softmax 的 CBOW 模型"></a>基于 Hierachical Softmax 的 CBOW 模型</h3><p>CBOW 的目标是在训练集中最大化 $p(w|Context(w))$。这里需要用到 <a href="https://zh.wikipedia.org/wiki/霍夫曼编码" target="_blank" rel="external">Huffman</a> 编码，每个叶子节点对应一个词典中的词。那么对于每个词来说, 在 Huffman 树上都有一条（唯一的）路径。<br>假设这个路径长为 $l$, 那么就有 $l-1$ 个分支，每个分支可以看作是一个二分类问题，那么把所有分类的概率乘起来，就是这个条件概率<br>$p(w|Context(w))$。这种思想就是基于 Hierachical Softmax 的 CBOW 模型</p>
+<p>具体地</p>
+<p>$$ p(w|Context(w)) = \prod_{j=2}^{l^w}p(d_j^{w}|X^w, \theta_{j-1}^w) $$</p>
+<p>其中 $l^w$ 表示路径长度（跟词 w 有关），$d_j^{w}$表示路径中第 $j$ 个词的编码，<br>$\theta_{j-1}^w$ 表示第 $j$ 非叶子节点对应的词向量（这个词向量只是辅助用的），<br>$p(d_j^{w}|X^w, \theta_{j-1}^w)$ 是分类的概率。</p>
+<p>如果我们采用 <a href="https://en.wikipedia.org/wiki/Logistic_regression" target="_blank" rel="external">Logistic Regression</a> 来做分类<br>并且代入到目标函数里，最终得到</p>
+<p>\begin{aligned}<br>L &amp;= \sum_{w\in C} \log p(w|Context(w)) \\<br>  &amp;= \sum_{w\in C} \log \prod_{j=2}^{l^w}p(d_j^{w}|X^w, \theta_{j-1}^w) \\<br>  &amp;= \sum_{w\in C} \sum_{j=2}^{l^w} { (1 - d_j^{w}) \log(\sigma(X^w\theta_{j-1}^w)) + d_j^{w} \log(1-\sigma(X^w\theta_{j-1}^w)) }<br>\end{aligned}<br>其中 $\sigma()$ 是 <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank" rel="external">sigmoid</a> 函数，下文同，不再赘述。</p>
+<p>这个目标函数可以用<a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent" target="_blank" rel="external">随机梯度法</a>来求解。</p>
+<h3 id="Skip-gram-模型"><a href="#Skip-gram-模型" class="headerlink" title="Skip-gram 模型"></a>Skip-gram 模型</h3><p>Skip-gram 的目标是在训练集中最大化 $p(Context(w)|w)$。首先我们有</p>
+<p>$$p(Context(w)|w) = \prod_{u \in Context(w)} p(u|w) $$</p>
+<p>同样采用 Hierachical Softmax 思想</p>
+<p>$$ p(u|w) = \prod_{j=2}^{l^u}p(d_j^{u}|V^w, \theta_{j-1}^u) $$</p>
+<p>并且仍然利用 Logistic Regression 作为分类器，我们可以得到目标函数：</p>
+<p>\begin{aligned}<br>L &amp;= \sum_{w\in C} \log p(Context(w)|w) \\<br>  &amp;= \sum_{w\in C} \log \prod_{u \in Context(w)} \prod_{j=2}^{l^u}p(d_j^{u}|V^w, \theta_{j-1}^u) \\<br>  &amp;= \sum_{w\in C} \sum_{u\in Context{w}} \sum_{j=2}^{l^u} { (1 - d_j^{u}) \log(\sigma(V^w\theta_{j-1}^u)) + d_j^{u} \log(1-\sigma(V^w\theta_{j-1}^u)) }<br>\end{aligned}</p>
+<p>仍然采用随机梯度法，但 word2vec 是每处理完一个在 $Context(w)$ 中的词 $u$ 就更新 $V^w$，而不是处理完整个 $Context(w)$ 再更新。</p>
+<h2 id="优化：-Negative-Sampling"><a href="#优化：-Negative-Sampling" class="headerlink" title="优化： Negative Sampling"></a>优化： Negative Sampling</h2><p>到这里 word2vec 的主要部分已经介绍完了。接下来就是一些提高性能和效率的办法。 <a href="http://arxiv.org/pdf/1310.4546.pdf" target="_blank" rel="external">Negative Sampling</a> 就是其中之一。</p>
+<p>本质上在其文中的方法类似于 word-context 矩阵分解，每一块为 word 和 context pair 之间的 <a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information" target="_blank" rel="external">Pointwise Mutual Information (PMI)</a>。</p>
+<p>PMI 矩阵在自然语言处理也是一种常用的技术，以后再写文章详谈。</p>
+
+					</div>
+
+			  <!-- about -->
+			  
+		</div>
+
+		<!-- pagination -->
+	  
+
+		<div class="comment-section">
+  
+  
+
+
+</div>
+	</div>
+
+	
+
+</div>
+
+
+		<footer>
+			
+
+<p>
+  由 <a href="https://hexo.io">hexo</a> 强力驱动 | 搭载 <a href="https://github.com/wayou/hexo-theme-material">material</a> 主题
+</p>
+<p>
+  &copy; 2016 <a href="http://yoursite.com"> Li </a>
+</p>
+<a id="gotop" href="#" title="back to top"><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+
+		</footer>
+	  </div>
+
+		<!-- <script src="/libs/bs/js/bootstrap.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script>(typeof $().modal == 'function')|| document.write('<script src="/libs/bs/js/bootstrap.min.js" type="text/javascript"><\/script>')</script>
+
+		<!-- material design -->
+		<!-- <script src="/libs/bs-material/js/ripples.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/ripples.min.js"></script>
+		<!-- <script src="/libs/bs-material/js/material.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/material.min.js"></script>
+		<!-- toc -->
+		<!-- <script src="/libs/tocify/jquery-ui.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="/libs/tocify/jquery.tocify.custom.js"></script>
+
+		<script src="/js/main.js"></script>
+
+	</body>
+</html>

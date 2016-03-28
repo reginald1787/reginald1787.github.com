@@ -1,0 +1,218 @@
+	<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Blind Separation of Instantaneous Mixtures of Nonstationary Sources | 掖垣十寻</title>
+  <meta name="author" content="Li">
+  
+  <meta name="description" content="AbstractMost source separation algorithms are based on a model of stationary sources. However, it is a simple matter to take advantage of possible nonstationarities of the sources to achieve separation. This paper develops novel approaches in this direction based on the principles of maximum likelihood and minimum mutual information. These principles are exploited by efficient algorithms in both the off-line case (via a new joint diagonalization procedure) and in the on-line case (via a Newton-like procedure). Some experiments showing the good performance of our algorithms and evidencing an interesting feature of our methods are presented: their ability to achieve a kind of super-efficiency. The paper concludes with a discussion contrasting separating methods for non-Gaussian and nonstationary models and emphasizing that, as a matter of fact, “what makes the algorithms work” is strictly speaking—not the nonstationarity itself but rather the property that each realization of the source signals has a time-varying envelope.
+IntroductionTheoretical BasisIn this report, we will mainly investigate two approaches, namely Maximum Likelihood and Block Gaussian Likelihood, to build objective functions for blind separation problems, and later we will discuss their connections with Guassian Mutual Information. If not specified, we assume the following sources are non-stationary Gaussian sources.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Blind Separation of Instantaneous Mixtures of Nonstationary Sources"/>
+  <meta property="og:site_name" content="掖垣十寻"/>
+
+  
+  
+		<!-- favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#009688">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#009688">
+		<!-- favicon end -->
+    <!-- <link href="/favicon.ico" rel="icon"> -->
+  
+
+  <!-- toc -->
+  <link rel="stylesheet" href="/libs/tocify/jquery.tocify.css" media="screen" type="text/css">
+
+  <!-- <link rel="stylesheet" href="/libs/bs/css/bootstrap.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" type="text/css">
+
+  <!-- material design -->
+	<!-- <link rel="stylesheet" href="/libs/bs-material/css/ripples.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/ripples.min.css" media="screen" type="text/css">
+  <!-- <link rel="stylesheet" href="/libs/bs-material/css/material.min.css" media="screen" type="text/css"> -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/material.min.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/highlight.light.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+
+  
+
+  <script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/libs/jquery-2.0.3.min.js" type="text/javascript"><\/script>')</script>
+
+</head>
+
+ 	<body>
+	  <nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">掖垣十寻</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li>
+                    <a href="/" title="">
+                    <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/archives" title="">
+                    <i class="fa fa-list"></i>存档
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="">
+                    <i class="fa fa-info-circle"></i>关于
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/atom.xml" title="这是一个订阅源">
+                    <i class="fa fa-rss"></i>RSS
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+	  <div class="container" >
+	    <div class="row">
+	
+	<div class="col-md-9 center-content">
+	
+
+		<div class="content">
+			<!-- index -->
+		   
+
+			  		<h2>Blind Separation of Instantaneous Mixtures of Nonstationary Sources</h2>
+					
+					<div>
+						<span class="post-time">2013-10-27 23:45:02</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>Most source separation algorithms are based on a model of stationary sources. However, it is a simple matter to take advantage of possible nonstationarities of the sources to achieve separation. This paper develops novel approaches in this direction based on the principles of maximum likelihood and minimum mutual information. These principles are exploited by efficient algorithms in both the off-line case (via a new joint diagonalization procedure) and in the on-line case (via a Newton-like procedure). Some experiments showing the good performance of our algorithms and evidencing an interesting feature of our methods are presented: their ability to achieve a kind of super-efficiency. The paper concludes with a discussion contrasting separating methods for non-Gaussian and nonstationary models and emphasizing that, as a matter of fact, “what makes the algorithms work” is strictly speaking—not the nonstationarity itself but rather the property that each realization of the source signals has a time-varying envelope.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Theoretical-Basis"><a href="#Theoretical-Basis" class="headerlink" title="Theoretical Basis"></a>Theoretical Basis</h2><p>In this report, we will mainly investigate two approaches, namely Maximum Likelihood and Block Gaussian Likelihood, to build objective functions for blind separation problems, and later we will discuss their connections with Guassian Mutual Information. If not specified, we assume the following sources are non-stationary Gaussian sources.</p>
+<a id="more"></a>
+<h1 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h1><h2 id="On-Line-Algorithms"><a href="#On-Line-Algorithms" class="headerlink" title="On-Line Algorithms"></a>On-Line Algorithms</h2><h3 id="Simple-Stochastic-Gradient"><a href="#Simple-Stochastic-Gradient" class="headerlink" title="Simple Stochastic Gradient"></a>Simple Stochastic Gradient</h3><p>For on-line separation, we could update separating matrix $B(t)$ by using the stochastic relative gradient for each iteration.<br>More specificly:<br>$$B(t+1) = B(t) - \lambda G(t)B(t)<br>$$<br>where $\lambda$ is a small positive constant and $G(t)$ is the relative gradient defined by:<br>$$G(t) = \Sigma^{-2}S(t)S^{T}(t)-I<br>$$<br>where $S(t) = B(t)X(t)$ and $\Sigma^2(t)=diag[\sigma_i^2(t),…,\sigma_K^2(t)]$, $\sigma_k^2(t)$ is an estimate of the variance.<br>For instance, we take $\sigma_k^2(t)$ as:<br>$$\sigma_k^2(t) = \sigma_k^2(t-1) + \rho[S_k^2(t)-\sigma_k^2(t-1)]<br>$$<br>where $\rho$ is a small positive learning step.<br>So the simple on-line algorithm is the following:</p>
+<blockquote>
+<p>Initial $X(t), B(t), \Sigma^2(t)$</p>
+<blockquote>
+<p>Set $S(t)=B(t)X(t)$ </p>
+<p>Update $\Sigma^2(t)$ </p>
+<p>Calculate $G(t)$ </p>
+<p>Update $B(t)$ </p>
+</blockquote>
+<p>Repeat</p>
+</blockquote>
+<h3 id="Newton-Like-On-Line-Technique"><a href="#Newton-Like-On-Line-Technique" class="headerlink" title="Newton-Like On-Line Technique"></a>Newton-Like On-Line Technique</h3><p>To accelerate the converging speed, we consider an exponentially weighted relative gradient matrix:<br>$$\bar{G}_t(B) = \sum_{\tau \leq t}\lambda(1-\lambda)^{t-\tau}\Sigma^{-2}(\tau)BX(\tau)X^T(\tau)B^T-I<br>$$</p>
+<p>The goal is to find $B(t)$ such that $\bar{G}_t(B)$ = 0. Thus we obtain the similar relative variation:<br>$$B(t+1) = B(t) - \lambda H(t)B(t)<br>$$<br>where matrix $H(t)$ is the first-order expansion of the gradient.</p>
+<p>Specifically,</p>
+<p>\begin{aligned}<br>\bar{G_t}(B-\lambda HB) &amp;= \\<br>&amp; \lambda[\Sigma^{-2}(t)BX(t)X(t)^TB^T-I] - \lambda H^T\\<br>&amp;- \lambda \sum_{\tau \leq t}\lambda(1-\lambda)^{t-\tau}\Sigma^{-2}(\tau)BX(\tau)X^T(\tau)B^T\\<br>&amp; + o(\lambda^2)<br>\end{aligned}</p>
+<p>Neglecting the $o(\lambda^2)$ term, the condition $\bar{G}_t(B-\lambda HB) =0$ becomes:</p>
+<p>\begin{aligned}<br>H^T+\sum_{\tau \leq t}\lambda(1-\lambda)^{t-\tau}\Sigma^{-2}(\tau)H\Sigma^2(\tau)<br>=\Sigma^{-2}(t)BX(t)X(t)^TB^T-I<br>\end{aligned}</p>
+<p>In practice, we use an supplementary matrix $W$ for caculate matrix $H$:<br>$$\begin{bmatrix}<br>h_{ij}(t)\\<br>h_{ji}(t)<br>\end{bmatrix}<br>=<br>{\begin{bmatrix}<br>w_{ij} &amp; 1\\<br>1 &amp; w_{ji}<br>\end{bmatrix}}^{-1}<br>\begin{bmatrix}<br>S_i(t)S_j(t)/\sigma_i^2(t)\\<br>S_j(t)S_i(t)/\sigma_j^2(t)<br>\end{bmatrix}<br>$$<br>where<br>$$w_{ij}(t) = w_{ij}(t-1) + \lambda [\sigma_j^2(t)/\sigma_i^2(t)-w_{ij}(t-1)]<br>$$</p>
+<p>Here comes the Newton-like on-line algorithm:</p>
+<blockquote>
+<p>Initial $X(t), B(t), \Sigma^2(t)$</p>
+<blockquote>
+<p>Set $S(t)=B(t)X(t)$</p>
+<p>Update $\Sigma^2(t)$ </p>
+<p>Update matrix $W(t)$ </p>
+<p>Calculate $H(t)$ </p>
+<p>Update $B(t)$ </p>
+</blockquote>
+<p>Repeat</p>
+</blockquote>
+<h1 id="Numerical-Experiments"><a href="#Numerical-Experiments" class="headerlink" title="Numerical Experiments"></a>Numerical Experiments</h1><h2 id="Experimental-Data-Music-and-heart-beats-signals"><a href="#Experimental-Data-Music-and-heart-beats-signals" class="headerlink" title="Experimental Data: Music and heart-beats signals"></a>Experimental Data: Music and heart-beats signals</h2><p>For our experiments, we use two kinds of data: 1) audio data with different sources (such as vocal, guitar, piano, etc.) and<br>2) a mixture data of gravida and baby heart-beats, as well as their breath sounds.  </p>
+<h3 id="Music-signals"><a href="#Music-signals" class="headerlink" title="Music signals"></a>Music signals</h3><p>We have 6 observations of different sensors of the audio signals, which is a mixture of 6 different single sources including<br>vocal, guitar, drums, etc. Each music segmentation is a 5-second wave file with a 44100 Hertz sample rate and 16 encoding bit. </p>
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><p>In this project, we have implemented both on-line and off-line algorithms derived from maximum likelihood and block Gaussian likelihood<br>as well as mutual information. It is of interesting that Guassian mutual information could also<br>lead to the same criterion for joint diagnonalization, and further we found it is closed connected with Gaussian likelihood.<br>We conducted our experiments on two different kinds of data, i.e., music signals and heart-beats signals,<br>to demonstrate the effectiveness of the algorithms. The on-line algorithms are very sensitive to parameters. When the step ratio is too large, the matrix $B$ may not converge to a stable form, and when it is too small, the converging speed can be very slow. Further, we use a regularization method to avoid amplifying effect.<br>Overall the algorithms work well for the experimental data, though two sources in the 5-second music haven’t been completely separated. One explanation is that the two sources are very similar to each other. </p>
+<p>Future we consider to extend the algorithms on images separation, speech recognition, etc. In those areas the principals of the algorithms remain similar and we could add extra information related to the inner structure of different data sources.</p>
+
+					</div>
+
+			  <!-- about -->
+			  
+		</div>
+
+		<!-- pagination -->
+	  
+
+		<div class="comment-section">
+  
+  
+
+
+</div>
+	</div>
+
+	
+
+</div>
+
+
+		<footer>
+			
+
+<p>
+  由 <a href="https://hexo.io">hexo</a> 强力驱动 | 搭载 <a href="https://github.com/wayou/hexo-theme-material">material</a> 主题
+</p>
+<p>
+  &copy; 2016 <a href="http://yoursite.com"> Li </a>
+</p>
+<a id="gotop" href="#" title="back to top"><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+
+		</footer>
+	  </div>
+
+		<!-- <script src="/libs/bs/js/bootstrap.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script>(typeof $().modal == 'function')|| document.write('<script src="/libs/bs/js/bootstrap.min.js" type="text/javascript"><\/script>')</script>
+
+		<!-- material design -->
+		<!-- <script src="/libs/bs-material/js/ripples.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/ripples.min.js"></script>
+		<!-- <script src="/libs/bs-material/js/material.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/material.min.js"></script>
+		<!-- toc -->
+		<!-- <script src="/libs/tocify/jquery-ui.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="/libs/tocify/jquery.tocify.custom.js"></script>
+
+		<script src="/js/main.js"></script>
+
+	</body>
+</html>

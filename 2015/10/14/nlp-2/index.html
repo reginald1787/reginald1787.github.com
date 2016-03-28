@@ -1,0 +1,254 @@
+	<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何让机器理解我们的语言（二）人工智能的映像变迁 | 掖垣十寻</title>
+  <meta name="author" content="Li">
+  
+  <meta name="description" content="作者按：本文是《如何让机器理解我们的语言》系列第二篇。谈论自然语言处理、机器理解很难绕开人工智能，故有此文。囿于作者才疏识浅，文章难免挂一漏万，多有谬误，鞠谢勘正。
+#工匠的玩具可能是太过于孤独的缘故，人类很早就开始了对人工智能的想象。大约在公元前900年，在中国的西周时期，据载有个巧匠就发明了一个神奇的机器舞姬，第一是外形和常人无异：
+
+周穆王西巡狩……道有献工名偃师……王荐之，曰：‘若与偕来者何人邪？’对曰：‘臣之所造能倡者。’穆王惊视之，趋步俯仰，信人也。
+
+第二是能歌善舞：
+
+巧夫颔其颐，则歌合律；捧其手，则舞应节。千变万化，惟意所适。”因而周穆王“以为宝人也，与盛姬内御并观之。
+
+第三是还能调戏王的女人：
+
+技将终，倡者瞬其目而招王之左右侍妾。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="如何让机器理解我们的语言（二）人工智能的映像变迁"/>
+  <meta property="og:site_name" content="掖垣十寻"/>
+
+  
+  
+		<!-- favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#009688">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#009688">
+		<!-- favicon end -->
+    <!-- <link href="/favicon.ico" rel="icon"> -->
+  
+
+  <!-- toc -->
+  <link rel="stylesheet" href="/libs/tocify/jquery.tocify.css" media="screen" type="text/css">
+
+  <!-- <link rel="stylesheet" href="/libs/bs/css/bootstrap.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" type="text/css">
+
+  <!-- material design -->
+	<!-- <link rel="stylesheet" href="/libs/bs-material/css/ripples.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/ripples.min.css" media="screen" type="text/css">
+  <!-- <link rel="stylesheet" href="/libs/bs-material/css/material.min.css" media="screen" type="text/css"> -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/material.min.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/highlight.light.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+
+  
+
+  <script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/libs/jquery-2.0.3.min.js" type="text/javascript"><\/script>')</script>
+
+</head>
+
+ 	<body>
+	  <nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">掖垣十寻</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li>
+                    <a href="/" title="">
+                    <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/archives" title="">
+                    <i class="fa fa-list"></i>存档
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="">
+                    <i class="fa fa-info-circle"></i>关于
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/atom.xml" title="这是一个订阅源">
+                    <i class="fa fa-rss"></i>RSS
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+	  <div class="container" >
+	    <div class="row">
+	
+	<div class="col-md-9 center-content">
+	
+
+		<div class="content">
+			<!-- index -->
+		   
+
+			  		<h2>如何让机器理解我们的语言（二）人工智能的映像变迁</h2>
+					
+					<div>
+						<span class="post-time">2015-10-14 23:43:47</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<p><em>作者按：本文是《如何让机器理解我们的语言》系列第二篇。谈论自然语言处理、机器理解很难绕开人工智能，故有此文。囿于作者才疏识浅，文章难免挂一漏万，多有谬误，鞠谢勘正。</em></p>
+<p>#工匠的玩具<br>可能是太过于孤独的缘故，人类很早就开始了对人工智能的想象。大约在公元前900年，在中国的西周时期，据载有个巧匠就发明了一个神奇的机器舞姬，第一是外形和常人无异：</p>
+<blockquote>
+<p><em>周穆王西巡狩……道有献工名偃师……王荐之，曰：‘若与偕来者何人邪？’对曰：‘臣之所造能倡者。’穆王惊视之，趋步俯仰，信人也。</em></p>
+</blockquote>
+<p>第二是能歌善舞：</p>
+<blockquote>
+<p><em>巧夫颔其颐，则歌合律；捧其手，则舞应节。千变万化，惟意所适。”因而周穆王“以为宝人也，与盛姬内御并观之。</em></p>
+</blockquote>
+<p>第三是还能调戏王的女人：</p>
+<blockquote>
+<p><em>技将终，倡者瞬其目而招王之左右侍妾。</em></p>
+</blockquote>
+<a id="more"></a>
+<p>根据描述，该舞姬大概跟下图差不太多。￼</p>
+<p><img src="http://i1.15yan.guokr.cn/9j63zxp4i7rj16a21j777dn8g6gofxld.jpg" alt="《Ex Machina》"></p>
+<p>两千多年后，人工智能的想象还是没能跳出这个好看姑娘的巢臼，请看 2014 年日本人工智能学会的杂志：</p>
+<p><img src="http://i1.15yan.guokr.cn/6v7d9ghfkhu7xv7kqpqyx29woigvs3t8.jpg" alt=""></p>
+<p>另外一个靠谱一点故事来自公元前约300年的希腊，有一名叫做阿尔希塔斯（Archytas）的数学家做了一只由压缩空气驱动的机器鸟。无独有偶，中国的鲁班也在差不多时期发明了一只机器鸟，“能飞三日”。阿尔希塔斯这个数学家可能是个非常讨厌熊孩子的人，他同时还发明了另外一种能够喋喋不休的机器，亚里士多德这样解释它的用途：</p>
+<blockquote>
+<p><em>… 让那些孩子们可以一直把精力放在这个机器上，从而阻止他们破坏房间的行为。</em></p>
+</blockquote>
+<p>这也许是历史上第一件人工智能造福人类的功绩。</p>
+<p>这些上古神兽离得可能有些远，让我们把目光转向中世纪。除了吸血鬼、女巫之外，频繁出现在传说里的还有各种各样的机器人，能够弹琴的，能够说话和回答问题的，能够写字的，能够画画的，能够算命的，阿尔·杰泽里甚至都造出了一个漂浮乐队，实在是太朋克了。可惜，这时候人工智能尚未诞生，一些极为精巧的机器人背后要么是工匠们巧夺天工的精密仪器技术，要么则是藏在某处的侏儒，还没真正摸到智能的门。</p>
+<p><img src="http://i1.15yan.guokr.cn/thrge7epklncumwhtlugybd4nsbq29me.jpg" alt="《la migliore offerta》"></p>
+<p>#图灵与图灵测试</p>
+<p>“人工智能”这个词的发明者是约翰·麦肯锡（Lisp语言之父），但普遍认为，图灵也是现代人工智能的奠基人。现代人工智能起源大致可以落在以下四个范畴里：<br><img src="http://i1.15yan.guokr.cn/1pmtzvlmxilmmvynlc9i6znsewh6vv20.jpg" alt=""></p>
+<p>而图灵的观点是 ”Acting humanly”， 即人工智能应当是要表现得与人类一样，基于这个原则，图灵提出了著名的图灵测试。</p>
+<blockquote>
+<p><em>图灵测试是指测试者通过一系列的对话，来判断被测试者是人类还是机器，如果机器成功地使得测试者错误判断它为人类，那么根据图灵的观点，它就通过了图灵测试。</em></p>
+</blockquote>
+<p><img src="http://i1.15yan.guokr.cn/0w3lc9yxpb8jiasttm6zx3t3nro7zp4m.jpg" alt="图灵"></p>
+<p>2014年，俄罗斯人的聊天机器人尤金·古斯特曼”（Eugene Goostman）通过了英国皇家学会的图灵测试，但这个聊天机器人显然不具备任何真正意义上的智能，包括谷歌工程总监雷·库兹威尔（Ray Kurzweil），硅谷风投家马克·安德森（Marc Andreessen）等人并不买账，他们认为图灵测试有很多不完备的地方，很多时候测试的只是机器欺骗测试者的能力，而不是真正的智能。并且由于图灵测试的出发点只是“Acting humanly”，它对于机器能不能够形成思考的能力，如何进行思考是不关心的，也无法在测试中体现。</p>
+<p>让我们再次回到1950年图灵的文章里，他给出了为什么要从”Acting humanly“出发的原因：他想绕过<strong>“机器能思考吗”</strong>这个问题。图灵认为，现阶段既无法定义”机器“，也无法定义”思考“，”Thinking humanly” 这个问题本身就是不确切的。实际上乔姆斯基在2012年的访谈中也体现了类似的态度，提问者问，“人工智能会思考吗？”，乔姆斯基则回答，“潜水艇会游泳吗？”。</p>
+<p>#乐观的50年代</p>
+<p>普遍认为，现代人工智能诞生于1956年的达特茅斯会议，下图中的参会者有Lisp语言之父麦卡锡，认知科学家马文·闵斯基（Marvin Lee Minsky），他还发明了第一台神经网络机，也是库布里克神作《2001太空漫游》的顾问，由于老闵独特的审美，这可能解释了为什么电影中的人工智能是一块黑石碑……另外参会者还有信息论创始人香农，计算机科学和心理学家艾伦·纽厄尔（Allen Newell）（这个海军退伍兵在弃戎从科之前曾在神秘的兰德公司工作）以及他的好伙伴，多年的合作者，诺贝尔经济学家获得者赫伯特·西蒙（Herbert A．Simon）。</p>
+<p><img src="http://i1.15yan.guokr.cn/sqt1yuap93j0i15diqpyrjoipf9wmpii.jpg" alt="达特茅斯会议"></p>
+<p>在达特茅斯会议开了山头之后，各方英雄开始纷纷响应，首先是带头大哥各自登场，香农在创建学科之余发明了一个可以解谜宫的电子鼠，艾伦和西蒙发明了一个程序叫做“逻辑理论家”可以证明《数学原理》中的定理，老闵是他的神经网络机 SNARC，麦卡锡则是他的 Lisp。</p>
+<p>由于开场开的太顺，人工智能起初在下棋、符号计算等小领域发展很快，1965年艾伦和西蒙就乐观地预言：</p>
+<blockquote>
+<p><em>20年内，人工智能将能够做任何人类能做的事情.</em></p>
+</blockquote>
+<p>可惜50年后的小冰连让她唱支歌儿都听不懂。</p>
+<p><img src="http://i1.15yan.guokr.cn/e5uqh5jhimkw23w4mgn0vmg72fk0ha80.jpg" alt="微软小冰"></p>
+<p>当然大师受限于时代和思维，预言不准的实在太平常了，图灵自己也预测最晚20世纪末就有人工智能真正通过图灵测试。不过很快人工智能的发展就遇到了重大挫折。</p>
+<p>其中一个挫折就是计算机运行了上万行仍然无法证明一个基本的高等问题：两个连续函数的和仍然是一个连续函数。另一个挫折则来自自然语言处理领域－－机器翻译。翻译下面这个句子成为俄语再翻译回来就变成：</p>
+<blockquote>
+<p><em>The spirit is willing but the flesh is weak. （心有余而力不足）</em></p>
+<p><em>The wine is good but the meet is spoiled. （酒好肉臭）</em></p>
+</blockquote>
+<p>当然现在的机器翻译都能成功地解决这个问题，但在当时的确给人工智能浇了很大一盆冷水。由此通解式的、规则为主的人工智能进入了低谷期，有些人开始另辟蹊径，思考专门领域的人工智能系统，或者又称为专家系统，这其中以费根鲍姆的DENDRAL最为出名，DENDRAL中保存着化学家的知识和质谱仪的知识，可以根据给定的有机化合物的分子式和质谱图，从几千种可能的分子结构中挑选出一个正确的分子结构。费根鲍姆开创了知识工程、专家系统的热潮，他自己也由此获得了图灵奖。</p>
+<p>#统计方法和机器学习</p>
+<p>但是好景不长，专家系统的方法有个很大的瓶颈，就是知识的获取和输入。总不可能把无穷尽的知识都输入到系统里去吧。那能不能让机器自己学习、获取知识呢？这就是现在大行其道的机器学习最开始的朴素思想。</p>
+<p>当然，“机器学习”这个词，早在1959年 Arthur Samuel 就开始说了，他也是达特茅斯会议的参会者之一。在那时候，最当热的机器学习学派应该是连接学派，主要的代表就是 Rosenblatt 的感知器，也就是最早的神经网络。然而他的徒儿，老闵，在十几年后提出了著名的“感知机不能解决异或问题”的结论，差不多宣判了神经网络和连接学派的死刑，这一死就死了好几十年，虽然中途有些零星之火，但真正又活过来主要还是因为 Hinton 脚踏 BP 反向传播算法，身披深度学习祥云来拯救它了。</p>
+<p>沉舟侧畔千帆过，在这边神经网络式微的时候，其他的算法如雨后春笋发展起来，比如 J. R. Quinlan 的决策树算法 ID3 和它的兄弟姐妹 ID4,CART 等等，然后就是响彻寰宇的 Vapnik 和他的支持向量机, 这也使得统计方法一跃成为机器学习的主流。在连接学派重出江湖之后，机器学习江湖主要就是他们分庭抗礼。Hinton 当然是历来看不上支持向量机和它的核方法，Facebook AI Lab 主任 Yann LeCun 就有个相关的笑话：</p>
+<blockquote>
+<p><em>The only kernel Geoff Hinton has ever used is a kernel of truth.</em></p>
+</blockquote>
+<p>其实 LeCun 和 Vapnik 早些年在贝尔实验室是同事，可能世界上最远的距离，是我在这头搞神经网络，而你却在几米外的那头研究支持向量机。</p>
+<p><img src="http://i1.15yan.guokr.cn/dfclubyq99rgcqoc60mdtwyyyvp95aui.jpg" alt="Vapnik"></p>
+<p>那么到了今天，人工智能已经有了长足的发展，在特定领域的特定任务有着相当出色的表现，比如人脸识别，谷歌等科技公司已经可以做到99%了，但是同样是图像识别领域，谷歌就错误地把人类标成了猩猩。</p>
+<p><img src="http://i1.15yan.guokr.cn/p9epuqb51rzpd4yfzuj58amb3fgojo54.jpg" alt=""></p>
+<p>所以，要让机器理解人的语言，还是一件非常困难的事情。不过，尽管路阻且长，人工智能的相关探索和应用目前正变得越来多，越来越广泛。</p>
+
+					</div>
+
+			  <!-- about -->
+			  
+		</div>
+
+		<!-- pagination -->
+	  
+
+		<div class="comment-section">
+  
+  
+
+
+</div>
+	</div>
+
+	
+
+</div>
+
+
+		<footer>
+			
+
+<p>
+  由 <a href="https://hexo.io">hexo</a> 强力驱动 | 搭载 <a href="https://github.com/wayou/hexo-theme-material">material</a> 主题
+</p>
+<p>
+  &copy; 2016 <a href="http://yoursite.com"> Li </a>
+</p>
+<a id="gotop" href="#" title="back to top"><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+
+		</footer>
+	  </div>
+
+		<!-- <script src="/libs/bs/js/bootstrap.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script>(typeof $().modal == 'function')|| document.write('<script src="/libs/bs/js/bootstrap.min.js" type="text/javascript"><\/script>')</script>
+
+		<!-- material design -->
+		<!-- <script src="/libs/bs-material/js/ripples.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/ripples.min.js"></script>
+		<!-- <script src="/libs/bs-material/js/material.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/material.min.js"></script>
+		<!-- toc -->
+		<!-- <script src="/libs/tocify/jquery-ui.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="/libs/tocify/jquery.tocify.custom.js"></script>
+
+		<script src="/js/main.js"></script>
+
+	</body>
+</html>

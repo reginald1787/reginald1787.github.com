@@ -1,0 +1,238 @@
+	<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LDA 和 PLSA | 掖垣十寻</title>
+  <meta name="author" content="Li">
+  
+  <meta name="description" content="主题模型是文本挖掘中一项重要的技术，它能够挖掘隐式主题，进而实现围绕主题的文本标注。得到了这些主题相关的标注之后，后续的相关操作如文本组织、摘要、搜索都将大大简化。
+LDA 是一种应用广泛的主题模型，物理意义直接，数学形式上也很优美，并且用的是贝叶斯学派的框架。不过在谈 LDA 之前，我们首先需要了解 Probabilistic Latent Semantic Analysis (PLSA), 它是主题模型的基础。
+PLSA在 PLSA 的世界观中，一篇文档是个双层结构，第一层是主题，一篇文档里包含了若干个主题，第二层是词语，每个主题包含了若干个词语。从文档 $d$ 生成词语 $w$ 的过程，就是先从文档生成主题 $z$，再从主题 $z$ 生成词语 $w$ 的过程。假设这篇文档总共有 $N$ 个词， $K$ 个主题，并且词语都是独立的，那么用概率来描述这个生成模型的话：
+$$ p(w|d) = \prod_{n=1}^N \sum_{k=1}^K p(w_n|z_k) p(z_k|d) $$
+如果假设文档的独立性，我们也很容易写出整个语料的生成概率。PLSA 模型较简单，可以用 EM 算法来求解。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="LDA 和 PLSA"/>
+  <meta property="og:site_name" content="掖垣十寻"/>
+
+  
+  
+		<!-- favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#009688">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#009688">
+		<!-- favicon end -->
+    <!-- <link href="/favicon.ico" rel="icon"> -->
+  
+
+  <!-- toc -->
+  <link rel="stylesheet" href="/libs/tocify/jquery.tocify.css" media="screen" type="text/css">
+
+  <!-- <link rel="stylesheet" href="/libs/bs/css/bootstrap.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" type="text/css">
+
+  <!-- material design -->
+	<!-- <link rel="stylesheet" href="/libs/bs-material/css/ripples.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/ripples.min.css" media="screen" type="text/css">
+  <!-- <link rel="stylesheet" href="/libs/bs-material/css/material.min.css" media="screen" type="text/css"> -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/material.min.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/highlight.light.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+
+  
+
+  <script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/libs/jquery-2.0.3.min.js" type="text/javascript"><\/script>')</script>
+
+</head>
+
+ 	<body>
+	  <nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">掖垣十寻</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li>
+                    <a href="/" title="">
+                    <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/archives" title="">
+                    <i class="fa fa-list"></i>存档
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="">
+                    <i class="fa fa-info-circle"></i>关于
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/atom.xml" title="这是一个订阅源">
+                    <i class="fa fa-rss"></i>RSS
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+	  <div class="container" >
+	    <div class="row">
+	
+	<div class="col-md-9 center-content">
+	
+
+		<div class="content">
+			<!-- index -->
+		   
+
+			  		<h2>LDA 和 PLSA</h2>
+					
+					<div>
+						<span class="post-time">2014-07-03 10:34:05</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<p>主题模型是文本挖掘中一项重要的技术，它能够挖掘隐式主题，进而实现围绕主题的文本标注。<br>得到了这些主题相关的标注之后，后续的相关操作如文本组织、摘要、搜索都将大大简化。</p>
+<p>LDA 是一种应用广泛的主题模型，物理意义直接，数学形式上也很优美，并且用的是贝叶斯学派的框架。<br>不过在谈 LDA 之前，我们首先需要了解 <a href="http://cs.brown.edu/~th/papers/Hofmann-UAI99.pdf" target="_blank" rel="external">Probabilistic Latent Semantic Analysis (PLSA)</a>, 它是主题模型的基础。</p>
+<h2 id="PLSA"><a href="#PLSA" class="headerlink" title="PLSA"></a>PLSA</h2><p>在 PLSA 的世界观中，一篇文档是个双层结构，第一层是主题，一篇文档里包含了若干个主题，第二层是词语，每个主题包含了若干个词语。<br>从文档 $d$ 生成词语 $w$ 的过程，就是先从文档生成主题 $z$，再从主题 $z$ 生成词语 $w$ 的过程。<br>假设这篇文档总共有 $N$ 个词， $K$ 个主题，并且词语都是独立的，那么用概率来描述这个生成模型的话：</p>
+<p>$$ p(w|d) = \prod_{n=1}^N \sum_{k=1}^K p(w_n|z_k) p(z_k|d) $$</p>
+<p>如果假设文档的独立性，我们也很容易写出整个语料的生成概率。PLSA 模型较简单，可以用 EM 算法来求解。</p>
+<!-- ![](https://drive.google.com/uc?export=view&id=0B2LZQ72QPejMc3lvOWRLaFVCTms) -->
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B2LZQ72QPejMN3h2M2EyQ0pFOUE" alt=""></p>
+<a id="more"></a>
+<h3 id="Dirichlet-分布"><a href="#Dirichlet-分布" class="headerlink" title="Dirichlet 分布"></a>Dirichlet 分布</h3><p>在讲 LDA 之前简单提一下 $\mbox{Dirichlet}$ 分布。<br>$\mbox{Dirichlet}$ 分布是贝叶斯统计里常用的一种先验分布，原因通常是因为它能够作为多项分布的共轭先验，<br>在贝叶斯推断中可以跳过很多复杂的计算，它的形式如下</p>
+<p>$$ \theta =(\theta_1, \cdots, \theta_K), \qquad \theta_i \in (0,1), \qquad \sum_{i=1}^K \theta_i = 1 $$</p>
+<p>$$ \alpha=(\alpha_1,\cdots,\alpha_K) $$</p>
+<!-- $$ \mathrm{B}(\boldsymbol\alpha) = 
+\frac{\prod\_{i=1}^K \Gamma(\alpha\_i)}{\Gamma\left(\sum\_{i=1}^K \alpha\_i\right)},
+\qquad\boldsymbol{\alpha}=(\alpha\_1,\cdots,\alpha\_K) $$ -->
+<!-- $$ f \left(x\_1,\cdots, x\_{K-1}; \alpha\_1,\cdots, \alpha\_K \right) = 
+\frac{1}{\mathrm{B}(\alpha)} \prod\_{i=1}^K x\_i^{\alpha\_i - 1} $$ -->
+<p>$$ p(\theta, \alpha) =<br>\frac{\Gamma(\sum_i \alpha_i)}{\prod_i \Gamma(\alpha_i)} \prod_i \theta_i^{\alpha_i - 1} $$</p>
+<p>可以理解 $\mbox{Dirichlet}$ 是一个关于分布的分布，简单说来，从 $\mbox{Dirichlet}$ 抽样出来的多维向量 $\theta$ 仍然是一个随机向量，服从某个离散分布。<br>而 $\mbox{Dirichlet}$ 的参数 $\alpha$ 就是用来控制这个离散分布的概率密度的。<br>实际上在我之前的<a href="http://reginald1787.github.io/2013/06/25/bayesian-methods-in-rankings/" target="_blank" rel="external">文章</a>中谈到过 $\mbox{Beta}$ 分布，他是二项分布的先验，而 $\mbox{Dirichlet}$ 就是 $\mbox{Beta}$ 的进化版，它是多项分布的先验。</p>
+<h2 id="LDA"><a href="#LDA" class="headerlink" title="LDA"></a>LDA</h2><p>在 PLSA 模型中，每个词语按一定概率分布从某个主题中抽取，一篇文档按一定概率分布包含若干个主题,这些概率的参数都是固定的，然后用 EM 来求解。<br>而 LDA 呢，实际上就是把这个模型放到贝叶斯的框架下，把这些分布的参数也当成分布来看待，而参数的先验分布它选择了 $\mbox{Dirichlet}$，这给后来的计算带了许多的好处。</p>
+<p>我们假设主题-文档的分布是一个 K 维的多项分布。具体地，一篇文章如果包含了 K 个主题，设每个主题占的比例为 $\theta_i$， 那么 $\sum_i \theta_i =1$，这个主题占的比例就是一个多项分布。<br>于此同时，我们假设主题本身是 V 维的$\mbox{Dirichlet}$ 分布。LDA 的模型如下图所示</p>
+<p><img src="http://nkssai.qiniudn.com/LDA.png" alt=""></p>
+<!-- ![](https://drive.google.com/uc?export=view&id=0B2LZQ72QPejMN2NCdHVYMEdUX0k)
+ -->
+<p>其中</p>
+<blockquote>
+<p>$z$ 表示词语-主题的分布, $\beta$ 是它的参数</p>
+<p>$\theta$ 表示主题-文档的分布， $\alpha$ 是它的参数</p>
+<p>$w$ 是我们观测到的文章中的词语</p>
+<p>$N$ 是文章的词语数， $M$ 是词库中文章的个数。</p>
+</blockquote>
+<!-- > $\beta\_k$ 表示主题-词库的分布 $p(topic | corpus)$ 的参数  
+ -->
+<p>这个模型可以这样来理解。 $\alpha$ 参数控制生成的主题-文档分布 $\theta$， 知道了这篇文档的主题分布后 $\theta$， 每次按多维高斯分布选择一个主题 $z_n$，然后从里面采样生成一个词语 $w_n$，采样的分布就是每个词语-主题分布 $z$，这样重复 $N$ 次，最终生成了我们所看到的包含 $N$ 个词的这篇文档 $w$。 写出来就是</p>
+<p>$$  p(\theta, z, w | \alpha, \beta)<br>= p(\theta | \alpha) \prod_{n=1}^N p(z_n|\theta)p(w_n |z_n,\beta)$$</p>
+<p>我们希望能够训练出模型的超参数 $\alpha,\beta$， 进而对于新的文档，我们能够估计出它的主题分布。<br>与 PLSA 不同，由于两个隐变量纠缠在一起，直接用 EM 求解是不太可能的。对于 LDA 的推断问题来讲，有两种主要的方法:</p>
+<ol>
+<li><p>Gibbs sampling</p>
+<blockquote>
+<p>初始化， 随机的给每个词 w 分配 $p(w|z, \beta)$</p>
+<p>在语料中用 Gibbs sampling 重采样， 更新 $p(w|z, \beta)$</p>
+<p>直到 Gibbs sampling 收敛, 计算 $\theta $    </p>
+</blockquote>
+</li>
+<li><p>Variational inference</p>
+<blockquote>
+<p>参考<a href="http://www.cse.ust.hk/~lzhang/teach/6931a/slides/lda-zhou.pdf" target="_blank" rel="external">这里</a>或者<a href="http://net.pku.edu.cn/~zhaoxin/vEMLDA.pdf" target="_blank" rel="external">这里</a></p>
+</blockquote>
+</li>
+</ol>
+<!-- 在实际情况的语料库中，我们希望在观测到词语-文档 $(d,w)$ 下，推断语料库的参数 $p(\theta,z | w, \alpha, \beta) = \frac{p(\theta, z, w |\alpha, \beta)}{p(\theta|\alpha, \beta)} $。 --> 
+<h5 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h5><ul>
+<li>Rickjin, <a href="http://www.flickering.cn/author/rickjin/" target="_blank" rel="external">LDA 数学八卦</a></li>
+<li>David Blei, <a href="https://www.cs.princeton.edu/~blei/blei-mlss-2012.pdf" target="_blank" rel="external">MLSS’12</a> </li>
+</ul>
+
+					</div>
+
+			  <!-- about -->
+			  
+		</div>
+
+		<!-- pagination -->
+	  
+
+		<div class="comment-section">
+  
+  
+
+
+</div>
+	</div>
+
+	
+
+</div>
+
+
+		<footer>
+			
+
+<p>
+  由 <a href="https://hexo.io">hexo</a> 强力驱动 | 搭载 <a href="https://github.com/wayou/hexo-theme-material">material</a> 主题
+</p>
+<p>
+  &copy; 2016 <a href="http://yoursite.com"> Li </a>
+</p>
+<a id="gotop" href="#" title="back to top"><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+
+		</footer>
+	  </div>
+
+		<!-- <script src="/libs/bs/js/bootstrap.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script>(typeof $().modal == 'function')|| document.write('<script src="/libs/bs/js/bootstrap.min.js" type="text/javascript"><\/script>')</script>
+
+		<!-- material design -->
+		<!-- <script src="/libs/bs-material/js/ripples.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/ripples.min.js"></script>
+		<!-- <script src="/libs/bs-material/js/material.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/material.min.js"></script>
+		<!-- toc -->
+		<!-- <script src="/libs/tocify/jquery-ui.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="/libs/tocify/jquery.tocify.custom.js"></script>
+
+		<script src="/js/main.js"></script>
+
+	</body>
+</html>

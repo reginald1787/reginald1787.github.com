@@ -1,0 +1,242 @@
+	<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何让机器理解我们的语言（一）语言与计算语言学 | 掖垣十寻</title>
+  <meta name="author" content="Li">
+  
+  <meta name="description" content="#当你在谈话的时候，你在谈些什么？
+语言可能是人类最早习得的后天技能之一，并且在绝大多数情况下，伴随着我们的一生。英国每日邮报调查发现，人类平均每天要说接近一万个词（女性会说的更多），假设一句简短的话平均包含10个词，那么，你也许每天不知不觉就已经说了上千句话了。可是，你真正知道你说了些什么吗？">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="如何让机器理解我们的语言（一）语言与计算语言学"/>
+  <meta property="og:site_name" content="掖垣十寻"/>
+
+  
+  
+		<!-- favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#009688">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#009688">
+		<!-- favicon end -->
+    <!-- <link href="/favicon.ico" rel="icon"> -->
+  
+
+  <!-- toc -->
+  <link rel="stylesheet" href="/libs/tocify/jquery.tocify.css" media="screen" type="text/css">
+
+  <!-- <link rel="stylesheet" href="/libs/bs/css/bootstrap.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" type="text/css">
+
+  <!-- material design -->
+	<!-- <link rel="stylesheet" href="/libs/bs-material/css/ripples.min.css" media="screen" type="text/css"> -->
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/ripples.min.css" media="screen" type="text/css">
+  <!-- <link rel="stylesheet" href="/libs/bs-material/css/material.min.css" media="screen" type="text/css"> -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/bootstrap-material/0.3.0/css/material.min.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/highlight.light.css" media="screen" type="text/css">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+
+  
+
+  <script src="//apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="/libs/jquery-2.0.3.min.js" type="text/javascript"><\/script>')</script>
+
+</head>
+
+ 	<body>
+	  <nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">掖垣十寻</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li>
+                    <a href="/" title="">
+                    <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/archives" title="">
+                    <i class="fa fa-list"></i>存档
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="">
+                    <i class="fa fa-info-circle"></i>关于
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/atom.xml" title="这是一个订阅源">
+                    <i class="fa fa-rss"></i>RSS
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+	  <div class="container" >
+	    <div class="row">
+	
+	<div class="col-md-9 center-content">
+	
+
+		<div class="content">
+			<!-- index -->
+		   
+
+			  		<h2>如何让机器理解我们的语言（一）语言与计算语言学</h2>
+					
+					<div>
+						<span class="post-time">2015-09-04 13:33:16</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<p>#当你在谈话的时候，你在谈些什么？</p>
+<p>语言可能是人类最早习得的后天技能之一，并且在绝大多数情况下，伴随着我们的一生。英国每日邮报调查发现，人类平均每天要说接近一万个词（女性会说的更多），假设一句简短的话平均包含10个词，那么，你也许每天不知不觉就已经说了上千句话了。可是，你真正知道你说了些什么吗？</p>
+<p><img src="http://i1.15yan.guokr.cn/hknhk4c5vb0ttqlqifkmrgh27dwfgp5f.jpg!content" alt="碑铭体"></p>
+<a id="more"></a>
+<p>语言的历史同人类一样古老，也被认为是一切文明的基础，只是表现形式的不同，尼罗河流域的语言是碑铭体，两河流域用楔形文字，而三体文明他们的语言则是脑电波。叔本华在《作为意志和表象的世界》谈论语言，</p>
+<blockquote>
+<p>人类是本能地发明自己的语言……语言使我们不仅学会了字词，还获得了概念含意。</p>
+</blockquote>
+<p>语言是如此深刻地存在人类历史和生活中，但是，就连语言学的泰斗人物，诺姆·乔姆斯基对语言是什么这样基础的问题也谨慎非常，难以回答。经曰</p>
+<blockquote>
+<p>知无言说。无言说故。智慧不生。有无即离。……语言自性不可得故。语言因缘种种异故.</p>
+</blockquote>
+<p>佛认为，语言是第二性的，是表征，是缘性的投射，是无法”得故“的。</p>
+<p>那对于这样无法定论的议题，是不是就无法从事语言学的研究了呢？其实也不尽然。乔姆斯基认为，语言是什么是所有语言学的核心议题，所有的研究应当围着这个核心而具体展开。事实上，基于对这个核心问题的不同假设和回答，语言学中流派纷呈，展现了既分裂又有融合的图景。这种现象，也是自然科学、社会学、人类学激烈交汇、碰撞的产物。</p>
+<p>#乔姆斯基革命</p>
+<p>早在古希腊事情，人们就开始思考语言，其中最著名的分为两大派别，其一是古典自然主义者，他们认为语言是声音的自然固化，是事物的直接名称（象声词），比如雷这个词的发声就同于雷的本身声音。另外一派是古典实用主义者，他们认为语言是人民约定俗称的，跟事物本质没有关系。比如数字一就是通过约定来定义的，因为数字一本身无法发出声音。在古希腊之后，语言学的相关研究一直有所发展，但总的看来，当时的语言学只是哲学范畴下的思辨，并没有成为一门真正独立的科学。</p>
+<p>终于到了20世纪前期，以瑞典语言学家弗迪南·德·索绪尔的结构主义才标志着现代语言学的诞生。索绪尔讲了一件什么样的事情呢？他认为</p>
+<blockquote>
+<p>语言是一个完整的符号系统……语言符号连接的不是事物的名称，而是概念和音响形象……在语言系统中，每一种符号的价值由系统组成成分的各个要素之间的相互关系来决定，而不是由它本身的性质决定.</p>
+</blockquote>
+<p>这样的概念使得语言学发生了从传统的语文学、历史比较语言学研究范式向现代的语言学、结构描写语言学的重大转变。从此，研究语言机构、对语言系统本身进行客观的描写和分析成为主流，也使得语言学独立与文学和其他社会学科。</p>
+<p>但是结构主义的技术主要体现他们用分布分析的办法，探索语言在各个层面上的单位及其结构关系的操作程序，例如对语言流层层切分，找出最小的语言单位—音素，对音素进行替换测试，从而总结出语言结构的配置关系。但是，这样事实描写的方法关心的是既成结构(what)， 它只能研究具体的语言事实，但不追究这些语言事实的成因(why)，无法回答”为什么句子只能这样说不能那样说，只能这样理解而不能那样理解“这类问题。</p>
+<p><img src="http://i1.15yan.guokr.cn/j6schcguljcls86mqhxgkyu6coqb0fed.jpg!content" alt="乔姆斯基"></p>
+<p>在20世纪中叶，乔姆斯基带来了一场语言学的革命。 他的三本书《句法结构》、《句法理论的若干问题》、《深层结构、表层结构和语义解释》引发了语言学界的大地震。乔姆斯基说了一件什么样的事情呢？他认为</p>
+<blockquote>
+<p>语言可以分为三个部分，句法、语音、语义。句法部分是其主要的部分，它构成一个句子的深层结构，并进一步转换成它的表层结构。语义部分对这个句子的深层结构进行语义结构说明。而语音部分对表层结构做出语音说明</p>
+</blockquote>
+<p>说话人通过一系列结构规则可以生成这种语言的句子的深层结构，即在每个句子表达出来以前就在大脑中存在的概念结构。形成了这种句子的深层结构之后，他头脑中已经有了一个正确的句子。在乔姆斯基看来，人们在说话之前他的头脑中存在着一个深层的语言结构或是思维能力，而且会形成一个内在的正确的句子。</p>
+<p>乔姆斯基认为，深层结构通过“转换部分”可以转换成表层结构，这就是通过说话时的语音所表达出来的句子，表层结构是句子的形式，深层结构代表句子的意义。</p>
+<p>乔姆斯基语言学的特点是更注重于语言的结构转换规则的研究。他认为，短语规则是形成句子的一套规则，这一规则先有一套短语结构改写规则。以英语为例来说，就有这样一套规则：</p>
+<blockquote>
+<p>句子——名词短语+动词短语</p>
+<p>名词短语——冠词+名词</p>
+<p>动词短语——动词+名词短语</p>
+</blockquote>
+<p>上述规则表明前者可以改写为后者，如“句子”可以改写为“名词短语+动词短语”。根据这些规则就可以推导出一个句子来。</p>
+<p>乔姆斯基语言学的特殊意义在于，他提出了形式语言和形式文法的概念，把自然语言和计算机程序语言放在同一空间下，用统一的数学方法来描述和定义，这就使得用计算机解析语言、表达语言、理解语言成为可能，也引出了我们今天的主角，计算语言学。</p>
+<p>#马尔科夫和普希金</p>
+<p>数学家马尔科夫这个名字应该理科生都耳熟能详，那除了都是俄国人之外，他和文学家普希金又有什么联系呢？</p>
+<p>在这里，我想多谈几句马尔科夫，毕竟是概率统计出身，见了开山的前辈总要作揖行礼。</p>
+<p>一般搞数学都有点宗派，讲传承，当然凡事总有例外，但马尔科夫肯定不是例外。他的导师是切比雪夫，对，就是那个切比雪夫不等式的切比雪夫。他的大师兄，是柯尔金，二师兄，是李雅普诺夫，这样环境下很难不成为一代大师。果然不出意料，在1897年第一届国际数学家大会时候，马尔科夫就是五名筹备委员之一，此时他已经是圣彼得堡教授，圣彼得堡科学院院士了，另外四个人都是谁呢，分别是克莱因，庞加莱，克雷蒙納，戈斯达·米塔格·莱弗勒，对，这就是那个传说中和诺贝尔夫人有染，导致了最终诺贝尔奖里没有数学的数学家。</p>
+<p>回到马尔科夫，大师除了数学上出了大量的成果用来虐我们之外，其人是比较理想主义的，用现在的话讲是有情怀的。马尔科夫喜欢读诗，还和著名文学家高尔基有过很多交流，在好友高尔基因为政治因素没能入选科学院时，马尔科夫不停写信抗议，甚至拒绝领取沙皇的奖章。所以后来马尔科夫去用他的马尔科夫链去解读普希金的长诗《叶甫盖尼·奥涅金》语言符号出现概率的时候，这也并不为奇了。算好之后，马尔科夫觉得毕竟诗歌两万字太短了，不过瘾，又去算了十万字的阿克萨科夫三部曲之一《孙子巴格洛夫的童年》。那个时候可没有计算机，要算都得靠人工手算。</p>
+<p><img src="http://i1.15yan.guokr.cn/lvuuaero7fdqghprixstaneo1nx6cvtn.jpg!content" alt="马尔科夫矩阵"></p>
+<p>讲了这么多马尔科夫，他和计算语言学有什么关系呢？可以说，马尔科夫在算普希金诗歌所用的马尔科夫模型，是当代计算机语言学最重要的理论支柱之一。从那之后，大量的概率统计学就被用到语言学中来分析计算词汇。</p>
+<p>#“本世纪最重要的硕士论文”<br>虽然概率统计开始运用到语言学中去，但直到1948年，香农才是真正把该概率模型和语言描述联系在一起的第一人。</p>
+<p>谈到香农，不免又要多谈两句。香农是信息学的学科奠基人，并且这个学科奠基人，在开创信息学这门学科的时候，就明白地告诉大家，这门学科我已经指出了它的发展终点了，不过中间的这些路，你们还是要走走的。</p>
+<p>只需要随便提起香农的三篇文章，就能一窥大师风采。第一篇叫做《继电和交换电路的符号分析》（这是他的硕士论文，哈佛大学的哈沃德·加德纳说“这可能是本世纪最重要的硕士论文”指的就是这篇），第二篇叫做《密码学的一个数学理论》，第三篇叫做《通信的一个数学理论》，这三篇文章，篇篇都重新定义和开创了一个学科。要知道，这可已经是20世纪，再不是牛顿那会儿微积分还没出现的时候。</p>
+<p>香农和语言学又有什么关系呢？他在马尔科夫模型的基础上，提出了有限状态自动机，首次用他的信息论来测定了英语的熵。其实当时香农把信息熵这个概念用到语言上，是一个副产品，他主要的研究在于信息熵与密码学，正好就拿英语来试试了。后来乔姆斯基又是在香农工作的基础上，把语言定义为有限状态语法生成的语言，提出了形式文法。从这以后，计算语言学开始由萌芽期走向了发展期。</p>
+<p>#《她》与《迷失东京》<br>很多人都喜欢斯嘉丽·约翰逊，但是我喜好的原因应该尤为奇特。迄今两部跟计算语言学有关的电影主角都是她：《迷失东京》(“lost in translation”, 2003) 和《她》(“her”, 2013)。</p>
+<p>当然，这两部其实是爱情电影，但的的确确涉及了计算语言学的两个重要议题：机器翻译和语音识别。</p>
+<p>机器翻译可以讲就是最早的计算语言学应用。军事常常能够促进科学的快速发展。由于军事的需要，引发了一阵机器翻译的热潮。这时候的办法主要是基于逻辑规则，大量的资金和人力投入到机器翻译这个领域。但机器翻译本身是一个困难的研究方向，在计算语言的初期，很难取得突破性的成果，在军方转移了支持之后，这股热潮也很快消失了。不过，正是因着机器翻译的热潮，计算语言学度过了最开始的萌芽期，从此之后研究会一直跟进。再后来，计算语言学发展迅速，机器翻译成为了其下的一个子学科。而今随着计算机处理能力的大幅提升，规则逻辑方法、统计方法以及近年来热门的机器学习方法不断进步，机器翻译又迎来了长足的发展。</p>
+<p><img src="http://i1.15yan.guokr.cn/ntsqetcf06ifjs1n9rdy415agqruj0qu.jpg!content" alt="Radio Rex"></p>
+<p>最早的语言识别器其实是一只叫 “Radio Rex” 的玩具狗,不过这只狗只能识别一个音，就是”Re”，而且还得是成年男性发出来的。现在经过了几乎一个世纪，几家大厂都有语音识别商用的模块了，比如苹果的 siri,谷歌的 google voice，微软的 cortana，但这些模块还是很难讲完全成熟，目前可能主要还是作为玩具。由此可见，玩具也是推动人类科技进步的一个动力。那为什么我想要个《她》里面的 Samantha 这么困难？是因为这里面除了语言识别以外，还需要很多其他的技术，比如语言理解，人工智能等等。当然随着越来越多的单身科学家急切地投入到这个领域，也许本世纪会有所突破也未可知。</p>
+<p><img src="http://i1.15yan.guokr.cn/ws5yxu2pdpjsns66zkjbemz73fnk7xzd.jpg!content" alt="siri与&quot;her&quot;"></p>
+<p>那么，谈了这么久的计算语言学，它究竟是怎样去解决一个问题的呢？</p>
+<blockquote>
+<p>第一步是需要抽象问题。在计算语言学里应用是非常多的，比如机器翻译、信息抽取、语音识别等。首先是要定义好问题。因为计算机是无法直接处理自然语言的，所以我们必须要先把问题抽象成计算机可以理解的任务。</p>
+<p>第二步是需要建立形式模型。问题定义好之后，需要把语言形式化，投射到一个可以用规整的数学模型表达的空间，这样才使得计算机处理成为可能。</p>
+<p>第三步是需要建立算法和计算模型。这也就是对之前建立好的数学模型在计算机上求解。由于自然语言的复杂性，模型往往是需要很多约束条件的，算法模型就是需要在这些约束条件下来求解这个适定问题。</p>
+</blockquote>
+<p>在现今大数据时代，计算语言学的用武之地越来越多，对文本、语音数据的处理和理解将是今后大数据、人工智能的基石。可以说，当机器真正能够理解语言甚至创造语言的时候，机器才能真正走入智能时代。</p>
+
+					</div>
+
+			  <!-- about -->
+			  
+		</div>
+
+		<!-- pagination -->
+	  
+
+		<div class="comment-section">
+  
+  
+
+
+</div>
+	</div>
+
+	
+
+</div>
+
+
+		<footer>
+			
+
+<p>
+  由 <a href="https://hexo.io">hexo</a> 强力驱动 | 搭载 <a href="https://github.com/wayou/hexo-theme-material">material</a> 主题
+</p>
+<p>
+  &copy; 2016 <a href="http://yoursite.com"> Li </a>
+</p>
+<a id="gotop" href="#" title="back to top"><i class="mdi-hardware-keyboard-arrow-up"></i></a>
+
+		</footer>
+	  </div>
+
+		<!-- <script src="/libs/bs/js/bootstrap.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script>(typeof $().modal == 'function')|| document.write('<script src="/libs/bs/js/bootstrap.min.js" type="text/javascript"><\/script>')</script>
+
+		<!-- material design -->
+		<!-- <script src="/libs/bs-material/js/ripples.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/ripples.min.js"></script>
+		<!-- <script src="/libs/bs-material/js/material.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/bootstrap-material/0.3.0/js/material.min.js"></script>
+		<!-- toc -->
+		<!-- <script src="/libs/tocify/jquery-ui.min.js"></script> -->
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="/libs/tocify/jquery.tocify.custom.js"></script>
+
+		<script src="/js/main.js"></script>
+
+	</body>
+</html>
